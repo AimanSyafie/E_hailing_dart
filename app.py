@@ -1,25 +1,54 @@
-from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-import os
+from flask import Flask, render_template, request, redirect, session
+from flask_mysqldb import MySQL
+import MySQLdb.cursors
 
 app = Flask(__name__)
+app.secret_key = 'secretkey'
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'transport_dashboard'
 
-app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-db = SQLAlchemy(app)
-
-class Driver(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    vehicle = db.Column(db.String(100))
-    rating = db.Column(db.Float)
+mysql = MySQL(app)
 
 @app.route('/')
-def home():
-    drivers = Driver.query.all()
-    return render_template('dashboard.html', drivers=drivers)
+def index():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-if __name__ == "__main__":
+    cursor.execute('SELECT COUNT(*) AS total_rides FROM rides')
+    total_rides = cursor.fetchone()['total_rides']
+
+    cursor.execute('SELECT SUM(ride_fare) AS total_revenue FROM rides')
+    revenue = cursor.fetchone()['total_revenue']
+
+    cursor.execute("SELECT COUNT(*) AS active_drivers FROM drivers WHERE status='Active'")
+    active_drivers = cursor.fetchone()['active_drivers']
+
+    cursor.execute('SELECT AVG(driver_rating) AS avg_rating FROM drivers')
+    avg_rating = cursor.fetchone()['avg_rating']
+
+    return render_template(
+        'dashboard.html',
+        total_rides=total_rides,
+        revenue=revenue,
+        active_drivers=active_drivers,
+        avg_rating=avg_rating
+    )
+
+@app.route('/drivers')
+def drivers():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM drivers')
+    drivers = cursor.fetchall()
+    return render_template('drivers.html', drivers=drivers)
+
+@app.route('/bookings')
+def bookings():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM rides')
+    rides = cursor.fetchall()
+    return render_template('bookings.html', rides=rides)
+
+if __name__ == '__main__':
     app.run(debug=True)
