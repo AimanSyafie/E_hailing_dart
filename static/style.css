@@ -1,0 +1,559 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================================
+BODY
+========================================= */
+
+body {
+
+    font-family: 'Poppins', sans-serif;
+
+    background: #f4f7fb;
+
+    color: #17233c;
+}
+
+/* =========================================
+LOGIN PAGE
+========================================= */
+
+.login-body {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    height: 100vh;
+
+    background:
+        linear-gradient(
+            135deg,
+            #14b8a6,
+            #0f766e
+        );
+}
+
+.login-box {
+
+    background: white;
+
+    width: 430px;
+
+    padding: 45px;
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.15);
+}
+
+.login-box h1 {
+
+    text-align: center;
+
+    font-size: 38px;
+
+    font-weight: 800;
+
+    margin-bottom: 35px;
+
+    color: #17233c;
+}
+
+.login-box input,
+.login-box select {
+
+    width: 100%;
+
+    padding: 16px;
+
+    margin-bottom: 18px;
+
+    border-radius: 14px;
+
+    border: 1px solid #dbe2ea;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: 0.3s;
+}
+
+.login-box input:focus,
+.login-box select:focus {
+
+    border-color: #14b8a6;
+
+    box-shadow:
+        0 0 0 4px rgba(20,184,166,0.12);
+}
+
+.login-box button {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border: none;
+
+    background: #14b8a6;
+
+    color: white;
+
+    border-radius: 14px;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.login-box button:hover {
+
+    background: #0f766e;
+}
+
+.error-msg {
+
+    margin-top: 20px;
+
+    text-align: center;
+
+    color: red;
+
+    font-weight: 600;
+}
+
+/* =========================================
+MAIN CONTENT
+========================================= */
+
+.main-content {
+
+    padding: 35px;
+}
+
+/* =========================================
+TOPBAR
+========================================= */
+
+.topbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 35px;
+}
+
+.topbar h1 {
+
+    font-size: 42px;
+
+    font-weight: 800;
+
+    margin-bottom: 6px;
+}
+
+.topbar h2 {
+
+    font-size: 24px;
+
+    color: #14b8a6;
+
+    font-weight: 600;
+}
+
+/* =========================================
+LOGOUT BUTTON
+========================================= */
+
+.logout-btn {
+
+    background: #14b8a6;
+
+    color: white;
+
+    padding: 14px 24px;
+
+    border-radius: 14px;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+
+    background: #0f766e;
+}
+
+/* =========================================
+FILTER BAR
+========================================= */
+
+.filter-bar {
+
+    display: flex;
+
+    gap: 15px;
+
+    margin-bottom: 35px;
+
+    flex-wrap: wrap;
+}
+
+.filter-bar select,
+.filter-bar button {
+
+    padding: 14px 18px;
+
+    border-radius: 12px;
+
+    border: 1px solid #dbe2ea;
+
+    font-size: 15px;
+}
+
+.filter-bar button {
+
+    background: #14b8a6;
+
+    color: white;
+
+    border: none;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.filter-bar button:hover {
+
+    background: #0f766e;
+}
+
+/* =========================================
+KPI GRID
+========================================= */
+
+.kpi-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(260px,1fr));
+
+    gap: 24px;
+
+    margin-bottom: 35px;
+}
+
+/* =========================================
+KPI CARD
+========================================= */
+
+.card {
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.05);
+
+    transition: 0.3s;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 6px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #14b8a6,
+            #06b6d4
+        );
+}
+
+.card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+
+    font-size: 18px;
+
+    margin-bottom: 18px;
+
+    color: #64748b;
+
+    font-weight: 600;
+}
+
+.card p {
+
+    font-size: 42px;
+
+    font-weight: 800;
+
+    color: #17233c;
+}
+
+/* =========================================
+CHART GRID
+========================================= */
+
+.chart-grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 30px;
+}
+
+/* =========================================
+CHART BOX
+========================================= */
+
+.chart-box {
+
+    background: white;
+
+    padding: 28px;
+
+    border-radius: 28px;
+
+    min-height: 620px;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.05);
+
+    transition: 0.3s;
+
+    overflow-x: auto;
+}
+
+.chart-box:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,0.08);
+}
+
+/* =========================================
+FULL WIDTH
+========================================= */
+
+.full-width {
+
+    grid-column: span 2;
+}
+
+/* =========================================
+PLOTLY CHART SIZE
+========================================= */
+
+.plotly-graph-div {
+
+    width: 100% !important;
+
+    height: 560px !important;
+}
+
+/* =========================================
+SCROLLBAR
+========================================= */
+
+::-webkit-scrollbar {
+
+    width: 8px;
+
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: #cbd5e1;
+
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+
+    background: #f1f5f9;
+}
+
+/* =========================================
+RESPONSIVE
+========================================= */
+
+@media(max-width: 1200px) {
+
+    .chart-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .full-width {
+
+        grid-column: span 1;
+    }
+}
+
+@media(max-width: 768px) {
+
+    .main-content {
+
+        padding: 20px;
+    }
+
+    .topbar {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+    }
+
+    .topbar h1 {
+
+        font-size: 32px;
+    }
+
+    .topbar h2 {
+
+        font-size: 20px;
+    }
+
+    .card p {
+
+        font-size: 32px;
+    }
+
+    .chart-box {
+
+        min-height: 500px;
+    }
+}
+/* =========================================
+LARGER KPI GRID
+========================================= */
+
+.kpi-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(280px,1fr));
+
+    gap: 28px;
+
+    margin-bottom: 40px;
+}
+
+/* =========================================
+BIGGER KPI CARDS
+========================================= */
+
+.card {
+
+    min-height: 180px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+/* =========================================
+LARGER CHARTS
+========================================= */
+
+.chart-box {
+
+    min-height: 680px;
+}
+
+/* =========================================
+BIG KPI VALUE
+========================================= */
+
+.card p {
+
+    font-size: 44px;
+
+    line-height: 1.1;
+}
+
+/* =========================================
+BIG CHART TITLES
+========================================= */
+
+.js-plotly-plot .plotly .gtitle {
+
+    font-size: 26px !important;
+
+    font-weight: 700 !important;
+}
+/* =====================================
+2 COLUMN CHART GRID
+===================================== */
+
+.two-column {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 24px;
+}
+
+@media (max-width: 1000px) {
+
+    .two-column {
+
+        grid-template-columns: 1fr;
+    }
+}
