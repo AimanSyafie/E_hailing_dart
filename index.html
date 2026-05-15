@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Dart Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <!-- GOOGLE FONT -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- =========================================
+SIDEBAR
+========================================= -->
+
+<div class="sidebar">
+
+    <div class="sidebar-logo">
+        Dart Dashboard
+    </div>
+
+    <button class="sidebar-btn active"
+            onclick="showTab('management', event)">
+        📊 Overview
+    </button>
+
+    <button class="sidebar-btn"
+            onclick="showTab('driver', event)">
+        🚖 Driver
+    </button>
+
+    <button class="sidebar-btn"
+            onclick="showTab('customer', event)">
+        👤 Customer
+    </button>
+
+</div>
+
+<!-- =========================================
+MAIN CONTENT
+========================================= -->
+
+<div class="main-content">
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <div class="user-box">
+            User
+        </div>
+
+    </div>
+
+    <!-- =========================================
+    MANAGEMENT
+    ========================================= -->
+
+    <div id="management"
+         class="tab-content active">
+
+        <h1>
+            Overview & Management
+        </h1>
+
+        <p class="section-subtitle">
+            Monitor business goals and operational metrics
+        </p>
+
+        <!-- KPI -->
+
+        <div class="kpi-grid">
+
+            <div class="card">
+                <h3>Total Bookings</h3>
+                <p>{{ total_bookings }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Cancellation Rate</h3>
+                <p>{{ cancellation_rate }}%</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Revenue</h3>
+                <p>BND {{ total_revenue }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Revenue Growth</h3>
+                <p>{{ revenue_growth }}%</p>
+            </div>
+
+            <div class="card">
+                <h3>Revenue per Driver</h3>
+                <p>BND {{ revenue_per_driver }}</p>
+            </div>
+
+        </div>
+
+        <!-- VISUALS -->
+
+        <div class="chart-grid">
+
+            <div class="chart-box">
+                {{ rev_driver_chart | safe }}
+            </div>
+
+            <div class="chart-box">
+                {{ completed_chart | safe }}
+            </div>
+
+            <div class="chart-box">
+                {{ avg_fare_chart | safe }}
+            </div>
+
+            <div class="chart-box">
+                {{ active_driver_chart | safe }}
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================
+    DRIVER
+    ========================================= -->
+
+    <div id="driver"
+         class="tab-content">
+
+        <h1>
+            Driver Performance
+        </h1>
+
+        <p class="section-subtitle">
+            Track driver efficiency and ride performance
+        </p>
+
+        <!-- KPI -->
+
+        <div class="kpi-grid">
+
+            <div class="card">
+                <h3>Total Earnings</h3>
+                <p>BND {{ total_driver_earnings }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Driver Rating</h3>
+                <p>{{ avg_driver_rating }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Acceptance Rate</h3>
+                <p>{{ acceptance_rate }}%</p>
+            </div>
+
+            <div class="card">
+                <h3>Driver Cancellation Rate</h3>
+                <p>{{ driver_cancel_rate }}%</p>
+            </div>
+
+        </div>
+
+        <!-- VISUALS -->
+
+        <div class="chart-grid driver-grid">
+
+            <div class="chart-box">
+                {{ distance_chart | safe }}
+            </div>
+
+            <div class="chart-box">
+                {{ earn_trip_chart | safe }}
+            </div>
+
+            <div class="chart-box">
+                {{ shift_chart | safe }}
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================
+    CUSTOMER
+    ========================================= -->
+
+    <div id="customer"
+         class="tab-content">
+
+        <h1>
+            Customer Experience
+        </h1>
+
+        <p class="section-subtitle">
+            Analyze customer satisfaction and ride behavior
+        </p>
+
+        <!-- KPI -->
+
+        <div class="kpi-grid">
+
+            <div class="card">
+                <h3>Average Waiting Time</h3>
+                <p>{{ avg_wait_time }} mins</p>
+            </div>
+
+            <div class="card">
+                <h3>Average Ride Cost</h3>
+                <p>BND {{ avg_ride_cost }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Amount Spent</h3>
+                <p>BND {{ total_spent }}</p>
+            </div>
+
+        </div>
+
+        <!-- VISUALS -->
+
+        <div class="chart-grid">
+
+            <div class="chart-box">
+                {{ rating_chart | safe }}
+            </div>
+
+            <div class="chart-box">
+                {{ rides_chart | safe }}
+            </div>
+
+            <div class="chart-box">
+                {{ spent_chart | safe }}
+            </div>
+
+            <div class="chart-box">
+                {{ vehicle_chart | safe }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+TAB SCRIPT
+========================================= -->
+
+<script>
+
+function showTab(tabId, event) {
+
+    let tabs =
+        document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    document
+        .getElementById(tabId)
+        .classList.add('active');
+
+    let buttons =
+        document.querySelectorAll('.sidebar-btn');
+
+    buttons.forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    event.currentTarget.classList.add('active');
+}
+
+</script>
+
+</body>
+
+</html>
